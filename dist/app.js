@@ -47,7 +47,7 @@ courseRouter.post("/courses", (req, res) => {
 });
 app.get("/", logger, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        res.send(hj56t);
+        res.send("hj56t");
     }
     catch (error) {
         next(error);
@@ -56,6 +56,13 @@ app.get("/", logger, (req, res, next) => __awaiter(void 0, void 0, void 0, funct
 app.post("/", logger, (req, res) => {
     // console.log(req.body);
     res.json({ message: "ok" });
+});
+//if route not match then sent message
+app.all("*", (req, res) => {
+    res.status(400).json({
+        success: false,
+        message: "Route not found",
+    });
 });
 //global error handler
 app.use((error, req, res, next) => {

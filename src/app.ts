@@ -45,7 +45,7 @@ app.get(
   logger,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      res.send(hj56t);
+      res.send("hj56t");
     } catch (error) {
       next(error);
     }
@@ -55,6 +55,15 @@ app.post("/", logger, (req: Request, res: Response) => {
   // console.log(req.body);
 
   res.json({ message: "ok" });
+});
+
+
+//if route not match then sent message
+app.all("*", (req: Request, res: Response) => {
+  res.status(400).json({
+    success: false,
+    message: "Route not found",
+  });
 });
 
 //global error handler
