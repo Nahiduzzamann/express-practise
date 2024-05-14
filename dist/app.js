@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -24,7 +33,7 @@ userRouter.post("/create-user", (req, res) => {
     res.json({
         success: true,
         message: "User is created successfully",
-        data: user
+        data: user,
     });
 });
 courseRouter.post("/courses", (req, res) => {
@@ -33,15 +42,28 @@ courseRouter.post("/courses", (req, res) => {
     res.json({
         success: true,
         message: "course is created successfully",
-        data: course
+        data: course,
     });
 });
-app.get("/", logger, (req, res) => {
-    //   console.log(req.query);
-    res.send("Hello Worldftghftghb");
-});
+app.get("/", logger, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        res.send(hj56t);
+    }
+    catch (error) {
+        next(error);
+    }
+}));
 app.post("/", logger, (req, res) => {
     // console.log(req.body);
     res.json({ message: "ok" });
+});
+//global error handler
+app.use((error, req, res, next) => {
+    if (error) {
+        res.status(400).json({
+            success: false,
+            message: "somthing went wrong",
+        });
+    }
 });
 exports.default = app;
